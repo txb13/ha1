@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CalculatorTest {
 
 
+
+
     @Test
     @DisplayName("Should display empty display")
     void testClearKey(){
@@ -22,14 +24,12 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Should display 0 after subtracting 2 of 2")
-     void testSubtraction(){
+    @DisplayName("Should not display -0")
+     void testNegativZero(){
         Calculator calculator = new Calculator();
 
-        calculator.pressDigitKey(2);
+        calculator.pressDigitKey(0);
         calculator.pressBinaryOperationKey("-");
-        calculator.pressDigitKey(2);
-        calculator.pressEqualsKey();
 
         String expected = "0";
         String actual = calculator.readScreen();
