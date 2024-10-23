@@ -9,10 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CalculatorTest {
 
 
+    @Test
+    @DisplayName("Should display empty display")
+    void testClearKey(){
+        Calculator calculator = new Calculator();
 
-    /**
-     * Eine Methode die prüft, ob versucht wird, eine Zahl durch 0 zu teilen
-     */
+        String test = calculator.readScreen();
+        calculator.pressDigitKey(5);
+        calculator.pressClearKey();
+        String expected = test;
+        String actual = calculator.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
     @Test
     @DisplayName("Should display 0 after subtracting 2 of 2")
