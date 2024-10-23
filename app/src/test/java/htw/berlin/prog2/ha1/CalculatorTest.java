@@ -8,6 +8,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("Retro calculator")
 class CalculatorTest {
 
+
+
+    /**
+     * Eine Methode die prüft, ob versucht wird, eine Zahl durch 0 zu teilen
+     */
+
+    @Test
+    @DisplayName("Should display 0 after subtracting 2 of 2")
+     void testSubtraction(){
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(2);
+        calculator.pressBinaryOperationKey("-");
+        calculator.pressDigitKey(2);
+        calculator.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calculator.readScreen();
+
+        assertEquals(expected, actual);
+    }
     @Test
     @DisplayName("should display result after adding two positive multi-digit numbers")
     void testPositiveAddition() {
