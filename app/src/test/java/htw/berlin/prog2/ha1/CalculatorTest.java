@@ -17,10 +17,8 @@ class CalculatorTest {
         String test = calculator.readScreen();
         calculator.pressDigitKey(5);
         calculator.pressClearKey();
-        String expected = test;
         String actual = calculator.readScreen();
-
-        assertEquals(expected, actual);
+        assertEquals(test, actual);
     }
 
     @Test
