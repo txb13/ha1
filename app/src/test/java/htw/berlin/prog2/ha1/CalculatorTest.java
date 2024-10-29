@@ -10,19 +10,6 @@ class CalculatorTest {
 
 
 
-
-    @Test
-    @DisplayName("Should display empty display")
-    void testClearKey(){
-        Calculator calculator = new Calculator();
-
-        String test = calculator.readScreen();
-        calculator.pressDigitKey(5);
-        calculator.pressClearKey();
-        String actual = calculator.readScreen();
-        assertEquals(test, actual);
-    }
-
     @Test
     @DisplayName("Should not display -0")
      void testNegativZero(){
@@ -118,5 +105,61 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display the correct result for percentage calculation")
+    void testPercentage() {
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(8);
+        calculator.pressDigitKey(0);
+        calculator.pressUnaryOperationKey("%");
+
+        String expected = "0.8";
+        String actual = calculator.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display the correct result for negative percentage calculation")
+    void testNegativePercentage() {
+        Calculator calculator = new Calculator();
+
+
+        calculator.pressDigitKey(8);
+        calculator.pressNegativeKey();
+        calculator.pressUnaryOperationKey("%");
+
+        String expected = "-0.08";
+        String actual = calculator.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Should display an empty display")
+    void testClearKey(){
+        Calculator calculator = new Calculator();
+
+        String test = calculator.readScreen();
+        calculator.pressDigitKey(5);
+        calculator.pressClearKey();
+
+        String actual = calculator.readScreen();
+        assertEquals(test, actual);
+    }
+    @Test
+    @DisplayName("Should display maximum of 10 digits")
+    void testMultipleDigitKey(){
+        Calculator calculator = new Calculator();
+
+        for (int i = 0; i < 13; i++) {
+            calculator.pressDigitKey(5);
+        }
+
+        String expected = "5555555555";
+        String actual = calculator.readScreen();
+        assertEquals(expected, actual);
+    }
 }
 

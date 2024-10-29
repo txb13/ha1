@@ -30,13 +30,20 @@ public class Calculator {
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
      * @param digit Die Ziffer, deren Taste gedrückt wurde
+     *
+     *
+     *              Es werden zu viele Werte ausgegeben!!
+     *               if (screen.length() < 10) {
+     *         }
+     *              hinzugefügt
      */
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-
-        screen = screen + digit;
+        if (screen.length() < 10) {
+            screen = screen + digit;
+        }
     }
 
     /**
@@ -73,13 +80,16 @@ public class Calculator {
      * Beim Drücken der Taste wird direkt die Operation auf den aktuellen Zahlenwert angewendet und
      * der Bildschirminhalt mit dem Ergebnis aktualisiert.
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
+     *
+     *
+     *                  screen wurde durch latest Value ersetzt, da das Vorzeichen von latestValue übernommen wird.
      */
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
         var result = switch(operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
-            case "%" -> Double.parseDouble(screen) / 100;
+            case "%" -> latestValue / 100;  // Änderung vorgenommen !
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
@@ -109,15 +119,11 @@ public class Calculator {
      */
 
 
-    /**
-    * Das Minuszeichen wird nicht bei einer 0 angezeigt
-     *
-    * */
     public void pressNegativeKey() {
-        if (!screen.equals("0")) {
+
             screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
         }
-    }
+
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
@@ -142,4 +148,5 @@ public class Calculator {
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
 }
